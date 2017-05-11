@@ -10,12 +10,15 @@ camera = PiCamera()
 camera.resolution = (640, 480)
 camera.framerate = 30
 rawCapture = PiRGBArray(camera, size=camera.resolution)
+bgs = cv2.createBackgroundSubtractorMOG2(detectShadows = True)
 
 time.sleep(1)
 
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
     image = frame.array
 
+	fgmask = bgs.apply(image)
+	
     cars = car_hc.detectMultiScale(image, 1.1, 2)
 
     ncars = 0
@@ -25,6 +28,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         print ncars    
     
     cv2.imshow("Frame", image)
+	cv2.imshow("Background Subtraction", fgmask)
     key = cv2.waitKey(1) & 0xFF
 
     rawCapture.truncate(0)
