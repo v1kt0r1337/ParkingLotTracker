@@ -10,10 +10,10 @@ This project in conjunction with a web camera tracks how many free spots there i
 
 Currently, haar-cascades are performing very poorly. If this continues the points below should be addressed.
 It should also be noted that haar-cascading might not be necessary. If we were to determine what an object is simply by its size and shape by looking at its contours we could circumvent haar cascades altogether. This does however pose problems when the recognition is not good enough or when things in a size between a person and a car (bike, motorcycle) are introduced into the picture. Food for thought.
-## Extended Haar-cascading
+## Option 1: Extended Haar-cascading
 - [ ] Use Haar-cascading to detect cars using our own haar cascades created with someone elses dataset
 - [ ] Use Haar-cascading to detect cars using our own haar cascades created with our own recorded dataset
-## OR identifying the correct objects using contouring
+## Option 2: Identifying the correct objects using contouring
 - [ ] Define the look and shape of the contours of a car using (Minimum size, hard edges and line length etc)
 - [ ] Clean up contours with appropriate treshold values for our video stream
 ## Manipulating recognized cars
