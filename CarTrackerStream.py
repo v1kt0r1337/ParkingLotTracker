@@ -11,6 +11,8 @@ camera.resolution = (640, 480)
 camera.framerate = 30
 rawCapture = PiRGBArray(camera, size=camera.resolution)
 bgs = cv2.createBackgroundSubtractorMOG2(detectShadows = True)
+opMorph = np.ones((4,4),np.uint8)
+clMorph = np.ones((4,4),np.uint8)
 
 time.sleep(1)
 
@@ -18,6 +20,11 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     image = frame.array
 
 	fgmask = bgs.apply(image)
+	
+	_, imBin=cv2.threshold(fgmask, 200, 255, cv2.TRESH_BINARY)
+	
+	fgmask = cv.morphologyEx(imBin, cv2.MORPH_OPEN, opMorph)
+	fgmask = cv2.morphologyEx(imBin, cv2.MORPH_CLOSE, clMorph)
 	
     cars = car_hc.detectMultiScale(image, 1.1, 2)
 
