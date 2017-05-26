@@ -3,12 +3,21 @@ import cv2
 import numpy as np
 
 
-car_hc = cv2.CascadeClassifier('cars.xml')
+#car_hc = cv2.CascadeClassifier('cars.xml')
 vid = cv2.VideoCapture('video1.avi')
 bgs = cv2.createBackgroundSubtractorMOG2(detectShadows = True)
 opMorph = np.ones((4,4),np.uint8)
 clMorph = np.ones((4,4),np.uint8)
+
+
+#cnt_up = 0
+#cnt_down = 0
+
 areaTH = 500
+font = cv2.FONT_HERSHEY_SIMPLEX
+cars = []
+max_c_age = 5
+cid = 1
 
 if vid.isOpened():
     rval , frame = vid.read()
@@ -33,11 +42,32 @@ while rval:
             cx = int(M['m10']/M['m00'])
             cy = int(M['m01']/M['m00'])
             x,y,w,h = cv2.boundingRect(cont)
+
+            new = True
+            for i in cars:
+                if abs(x-i.getX()) <= w and abs(y-i.getY()) <= h:
+                    new = False
+                    i.updateCoords(cx,cy)
+                    break
+            if new == True:
+                c = Car.MyCar(cid,cx,cy, max_c_age)
+                cars.append(c)
+                cid += 1
+
             cv2.circle(frame, (cx,cy), 5, (0,0,255), -1)
             img = cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),2)
             cv2.drawContours(frame, cont, -1, (0,255,0), 3)
 
-    cars = car_hc.detectMultiScale(frame, 1.1, 2)
+            for i in cars:
+                if len(i.getTracks()) >= 2:
+                    cts = np.array(i.getTracks(), np.int32)
+                    cts = cts.reshape((-1,1,2))
+                    frame = cv2.polylines(frame,[cts],False,i.getRGB())
+                if i.getId() == 9:
+                    print str(i.getX()), ',', str(i.getY())
+                cv2.putText(frame, str(i.getId()),(i.getX(),i.getY()),font,0.3,i.getRGB(),1,cv2.LINE_AA)
+            
+    #cars = car_hc.detectMultiScale(frame, 1.1, 2)
 
     #ncars = 0
     #for (x,y,w,h) in cars:
