@@ -53,7 +53,7 @@ class MyCar:
     def going_DOWN(self,mid_start,mid_end):
         if len(self.tracks) >= 2:
             if self.state == '0':
-                if self.tracks[-1][1] > mid_start and self.tracks[-2][1] <= mid.start:
+                if self.tracks[-1][1] > mid_start and self.tracks[-2][1] <= mid_start:
                     state = '1'
                     self.dir = 'down'
                     return True
