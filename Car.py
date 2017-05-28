@@ -1,5 +1,10 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from random import randint
 import time
+
+__author__ = "Adam Ajmi, Federico E. MejÃ­a Barajas"
 
 class MyCar:
     tracks = []
