@@ -10,10 +10,12 @@ __author__ = "Adam Ajmi, Federico E. MejÃ­a Barajas"
 
 
 #car_hc = cv2.CascadeClassifier('cars.xml')
+#Initiates capture of video file
 vid = cv2.VideoCapture('video1.avi')
+#Creates background subtractor using MOG2 to remove most background noise before morphological transformations
 bgs = cv2.createBackgroundSubtractorMOG2(detectShadows = True)
 
-#Values used for morphology transformations (open and close)
+#Values used for morphological transformations (open and close)
 opMorph = np.ones((2,2),np.uint8)
 opMorph2 = np.ones((3,3),np.uint8)
 clMorph = np.ones((6,6),np.uint8)
