@@ -21,4 +21,4 @@ It should also be noted that haar-cascading might not be necessary. If we were t
 - [x] Be able to recognize the same object in a different frame
 - [x] Draw a vector in the direction the object is heading
 - [x] Draw a line in which if an object passes through, triggers a function that checks and reports vector direction
-- [ ] POST result to our database
+- [x] POST result to our database
