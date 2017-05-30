@@ -32,9 +32,9 @@ print(message)
 headers = {'x-access-token': token}
 url = "http://158.37.63.8:3000/api/v0/parkinglogs/increment"
 
-#car_hc = cv2.CascadeClassifier('cars.xml')
+#car_hc = cv2.CascadeClassifier('HaarCascades/cars.xml')
 #Initiates capture of video file
-vid = cv2.VideoCapture('video4.mp4')
+vid = cv2.VideoCapture('Video/video4.mp4')
 #Creates background subtractor using MOG2 to remove most background noise before morphological transformations
 bgs = cv2.createBackgroundSubtractorMOG2(detectShadows = True)
 

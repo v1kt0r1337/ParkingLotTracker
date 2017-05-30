@@ -31,7 +31,7 @@ print(message)
 headers = {'x-access-token': token}
 url = "http://158.37.63.8:3000/api/v0/parkinglogs/increment"
 
-#car_hc = cv2.CascadeClassifier('cars.xml')
+#car_hc = cv2.CascadeClassifier('HaarCascades/cars.xml')
 #Initiates Pi camera
 camera = PiCamera()
 #Sets camera resolution from variables and starts raw capture from RGB array
