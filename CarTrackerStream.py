@@ -250,3 +250,4 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 	
     #If key input is q, stop running
     if key == ord("q"):
+        break
