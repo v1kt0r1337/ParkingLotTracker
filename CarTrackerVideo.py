@@ -5,13 +5,36 @@ import time
 import cv2
 import Car
 import numpy as np
+import requests
+from requests.auth import HTTPDigestAuth
+import json
 
-__author__ = "Adam Ajmi, Federico E. MejÃ­a Barajas"
+__author__ = "Adam Ajmi, Kjetil Hoel, Federico E. MejÃ­a Barajas"
 
+data = {'deviceId': 'api', 'password': 'passord'}
+
+url = "http://158.37.63.8:3000/api/v0/auth"
+r = requests.post(url, data=data)
+
+jData = r.json()
+
+# For successful API call, response code will be 200 (OK)
+if(r.ok):
+    token = jData.get('token')
+    message = jData.get('message')
+    print(message)
+
+else:
+  # If response code is not ok (200), print the resulting http error code with description
+  message = jData.get('message')
+print(message)
+
+headers = {'x-access-token': token}
+url = "http://158.37.63.8:3000/api/v0/parkinglogs/increment"
 
 #car_hc = cv2.CascadeClassifier('cars.xml')
 #Initiates capture of video file
-vid = cv2.VideoCapture('video1.avi')
+vid = cv2.VideoCapture('video4.mp4')
 #Creates background subtractor using MOG2 to remove most background noise before morphological transformations
 bgs = cv2.createBackgroundSubtractorMOG2(detectShadows = True)
 
@@ -143,11 +166,15 @@ while rval:
                             #Increment counter and POST to database
                             cnt_up += 1;
                             print 'Object ID: ',i.getId(),' travelled up at',time.strftime('%c')
+			    data = {"increment":1,"parkingLot_id":1}
+			    r2 = requests.post(url, data, headers = headers)
                         #else if object is moving down...
                         elif i.going_DOWN(line_down,line_up) == True:
                             #Increment counter and POST to database
                             cnt_down += 1;
                             print 'Object ID: ',i.getId(),' travelled down at',time.strftime('%c')
+			    data = {"increment":-1,"parkingLot_id":1}
+			    r2 = requests.post(url, data, headers = headers)
                         break
                     #If state is '1', where '1' is already counted and '0' is default (not yet counted)
                     if i.getState () == '1':
@@ -210,8 +237,10 @@ while rval:
     cv2.imshow("Backround Subtraction", fgmask2)
     cv2.imshow("Result",frame)
     #Wait for key input
-    cv2.waitKey(1);
+    key = cv2.waitKey(1) & 0xFF
 
+    if key == ord("q"):
+        break
 #Releases video and destroys all active windows
 vid.release()
 cv2.destroyAllWindows()
