@@ -19,9 +19,10 @@ Version: 0.5
 - [Contributing](#contributing)
 - [Versioning](#versioning)
 - [License](#license)
+- [Acknowledgements](#acknowledgements)
 
 
-##Getting Started
+## Getting Started
 
 Clone down the project in the manner that you prefer, example from terminal:
  
@@ -32,16 +33,16 @@ $ git clone https://github.com/Archheretic/ParkingLotTracker .git
 If your interested in contributing to the project look at [Contributing](#contributing)
 
 
-###Prerequisites
+### Prerequisites
 While it is a prerequisite to own a raspberry pi with an official pi camera to be able to run the CarTrackerStream 
 natively, it is not a prerequisite to if you want to test it or develop yourself inside of a docker container. 
 However, you will need to use a video-clip or find another way to stream video to the application.
 
-###Installing
+### Installing
 
 To try this project for yourself, you have two options:
 
-###Native
+### Native
 If you have a raspberry pi with an attached camera module a debian-based OS (alpine, raspbian jessie to name a few):
 Compile OpenCV3.2 for python 2.7 yourself following the instructions found [here](#http://www.pyimagesearch.com/2016/04/18/install-guide-raspberry-pi-3-raspbian-jessie-opencv-3/)
 
@@ -53,7 +54,7 @@ pip install NumPy Request PiCamera
 Run CarTrackerStream.py with python 2.7 from where you cloned the project with the following command:
 python CarTrackerStream.py
 
-###Docker
+### Docker
 If you do not have a raspberry pi with an attached camera module but would like to test/develop in docker:
 
 Due to time constraints, we do not have our own docker image available.
@@ -67,8 +68,8 @@ docker pull rickryan/rpi-jessie-opencv3.2
 ```
 
 
-##How to run
-###Running Natively
+## How to run
+### Running Natively
 Run the following command to run the program:
 ```
 python CarTrackerStream.py
@@ -79,7 +80,7 @@ moving in to a parking lot and cars that are moving down are leaving the parking
 if these need to be reversed, but more heavy modifications would need to be made if the tracking would be horizontal
 or diagonal as opposed to vertical.
 
-###Running in Docker
+### Running in Docker
 Run the docker image with the following command:
 ```
 docker run -ti -e DISPLAY=$DISPLAY \
