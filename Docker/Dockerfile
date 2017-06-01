@@ -1,16 +1,14 @@
 FROM resin/rpi-raspbian:latest
 
-ENV OPENCV_VERSION 3.2.0
+#Build instructions from pyimagesearch: http://www.pyimagesearch.com/2016/04/18/install-guide-raspberry-pi-3-raspbian-jessie-opencv-3/
 
-# install opencv3 as detailied in: http://www.pyimagesearch.com/2016/04/18/install-guide-raspberry-pi-3-raspbian-jessie-opencv-3/
-
-# update apt
+# Update package lists in prep for downloading build tools and libraries
 RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
 
-# install necessary build tools
+# Install all build tools needed
 RUN apt-get -qy install build-essential cmake pkg-config unzip wget
 
-# install necessary libraries
+# Install all libraries needed
 RUN apt-get -qy install \
 	libjpeg-dev \
 	libtiff5-dev \
@@ -29,26 +27,24 @@ RUN apt-get -qy install \
 	python-pip \
 	python-numpy
 
-# download latest source & contrib
+# Download source for OpenCV 3.2.0
 RUN cd /tmp && \
 	wget -O opencv.zip https://github.com/opencv/opencv/archive/$OPENCV_VERSION.zip && \
 	unzip opencv.zip
-	
+# Download source for OpenCV 3.2.0 contribs
 RUN cd /tmp && \
 	wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/$OPENCV_VERSION.zip && \
 	unzip opencv_contrib.zip
 
-# build opencv
-RUN cd /tmp/opencv-$OPENCV_VERSION && \
+# Builds OpenCV3.2.0 with contribs
+RUN cd /tmp/opencv-3.2.0 && \
 	mkdir build && \
 	cd build && \
 	cmake -D CMAKE_BUILD_TYPE=RELEASE \
 	-D CMAKE_INSTALL_PREFIX=/usr/local \
-	-D INSTALL_C_EXAMPLES=ON \
-	-D BUILD_PYTHON_SUPPORT=ON \
 	-D BUILD_NEW_PYTHON_SUPPORT=ON \
 	-D INSTALL_PYTHON_EXAMPLES=ON \
-	-D OPENCV_EXTRA_MODULES_PATH=/tmp/opencv_contrib-$OPENCV_VERSION/modules \
+	-D OPENCV_EXTRA_MODULES_PATH=/tmp/opencv_contrib-3.2.0/modules \
 	-D BUILD_EXAMPLES=ON .. && \
 	make -j4 && \
 	make && \
@@ -56,9 +52,7 @@ RUN cd /tmp/opencv-$OPENCV_VERSION && \
 	# ldconfig && \
 	make clean
 	
-# cleanup source
-RUN cd /tmp && rm -rf opencv-$OPENCV_VERSION
+# Delete source code after build is complete
+RUN cd /tmp && rm -rf opencv-3.2.0
 
-RUN git clone --branch develop https://github.com/Archheretic/ParkingLotTracker/ 
-
-CMD ["python" "CarTrackerVideo.py"]
+# CMD ["/bin/bash"]
