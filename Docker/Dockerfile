@@ -29,11 +29,11 @@ RUN apt-get -qy install \
 
 # Download source for OpenCV 3.2.0
 RUN cd /tmp && \
-	wget -O opencv.zip https://github.com/opencv/opencv/archive/$OPENCV_VERSION.zip && \
+	wget -O opencv.zip https://github.com/opencv/opencv/archive/3.2.0.zip && \
 	unzip opencv.zip
 # Download source for OpenCV 3.2.0 contribs
 RUN cd /tmp && \
-	wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/$OPENCV_VERSION.zip && \
+	wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/3.2.0.zip && \
 	unzip opencv_contrib.zip
 
 # Builds OpenCV3.2.0 with contribs
