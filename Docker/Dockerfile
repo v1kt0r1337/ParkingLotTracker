@@ -55,4 +55,4 @@ RUN cd /tmp/opencv-3.2.0 && \
 # Delete source code after build is complete
 RUN cd /tmp && rm -rf opencv-3.2.0
 
-# CMD ["/bin/bash"]
+CMD ["/bin/bash"]
