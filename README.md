@@ -3,6 +3,8 @@ This project is a proof of concept where we in conjunction with a raspberry pi w
 camera recognition with Python 2.7 and OpenCV 3.2 to detect cars moving in and out of a parking lot.
 
 Links to other repositories which tie in with this project:
+[ParkingLotTrackerServer](#https://github.com/Archheretic/ParkingLotTrackerServer)
+[ParkingLotTrackerMobileApp](#https://github.com/Archheretic/ParkingLotTrackerMobileApp)
 
 
 Version: 0.5
